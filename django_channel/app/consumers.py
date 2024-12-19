@@ -23,6 +23,7 @@ class MySyncConsumer(SyncConsumer):
         print("connection closed...")
         print('channel Layer', self.channel_layer)  #get default channel layer from channel layer
         print('channel name', self.channel_name) #get channel name from channel
+        #discard the channel from group
         async_to_sync(self.channel_layer.group.discard)('Programmers', self.channel_name)
         raise StopConsumer()
 
