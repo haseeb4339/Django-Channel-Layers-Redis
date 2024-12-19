@@ -7,6 +7,7 @@ class MySyncConsumer(SyncConsumer):
 
     def websocket_connect(self,event):
         print("connection established....")
+        print('channel Layer', self.channel_layer)  #get default channel layer from channel layer
         self.send({
             'type':'websocket.accept'
         })

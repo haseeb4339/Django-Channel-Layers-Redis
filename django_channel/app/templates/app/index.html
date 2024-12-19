@@ -8,7 +8,7 @@
 <body>
     <h1>Chat Application!</h1>
     <script>
-        var ws = new WebSocket('ws://127.0.0.1:8080/ws/sc/');
+        var ws = new WebSocket('ws://127.0.0.1:8000/ws/sc/');
         ws.onopen = function(){
             console.log('Connected to WebSocket Server');
             ws.send('Welcome to the chat application!');
