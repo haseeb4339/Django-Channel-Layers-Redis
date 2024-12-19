@@ -14,10 +14,12 @@
         var ws = new WebSocket('ws://127.0.0.1:8000/ws/sc/');
         ws.onopen = function(){
             console.log('Connected to WebSocket Server');
-            ws.send('Welcome to the chat application!');
+            // ws.send('Welcome to the chat application!');
         }
         ws.onmessage = function(event){
             console.log('Message received.....', event);
+            const data = JSON.parse(event.data)   //convert string to JSON object
+            document.querySelector('#chat-log').value += (data.message + '\n')  // append the message to text area
         }
         ws.onclose = function(){
             console.error('Connection closed unexpectedly')
