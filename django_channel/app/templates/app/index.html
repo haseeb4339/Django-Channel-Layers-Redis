@@ -3,104 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multiplication Table</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 20px;
-            text-align: center;
-        }
-
-        h1 {
-            color: #333;
-        }
-
-        table {
-            margin: 20px auto;
-            border-collapse: collapse;
-            width: 50%;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            background-color: #ffffff;
-        }
-
-        th, td {
-            padding: 15px;
-            border: 1px solid #ddd;
-            text-align: center;
-        }
-
-        th {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
-        tr:hover {
-            background-color: #f1f1f1;
-        }
-
-        caption {
-            margin-top: 10px;
-            font-size: 1.2em;
-            font-weight: bold;
-        }
-    </style>
+    <title>Document</title>
 </head>
 <body>
-    <h1>Dynamic Multiplication Table</h1>
-    <table id="multiplication-table">
-        <caption>Multiplication Table</caption>
-        <thead>
-            <tr>
-                <th>Expression</th>
-                <th>Result</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-
+    <h1>Chat Application!</h1>
     <script>
-        const tableBody = document.getElementById('multiplication-table').querySelector('tbody');
-        const number = 2
-        const ws = new WebSocket(`ws://127.0.0.1:8000/ws/ac/${number}`);
-        ws.onopen = function() {
+        var ws = new WebSocket('ws://127.0.0.1:8080/ws/sc/');
+        ws.onopen = function(){
             console.log('Connected to WebSocket Server');
-            ws.send('Requesting multiplication table');
-        };
-
-        ws.onmessage = function(event) {
-            console.log('Message received from server:', event.data);
-
-            // Parse the data (assumes server sends a simple string like "2 x 1 = 2")
-            const row = document.createElement('tr');
-            const [expression, result] = event.data.split('=');
-
-            // Add cells to the row
-            const expressionCell = document.createElement('td');
-            expressionCell.textContent = expression.trim();
-            const resultCell = document.createElement('td');
-            resultCell.textContent = result.trim();
-
-            row.appendChild(expressionCell);
-            row.appendChild(resultCell);
-
-            // Append the row to the table body
-            tableBody.appendChild(row);
-        };
-
-        ws.onerror = function(event) {
-            console.log('WebSocket error:', event);
-        };
-
-        ws.onclose = function() {
-            console.log('Connection closed');
-        };
+            ws.send('Welcome to the chat application!');
+        }
+        ws.onmessage = function(event){
+            console.log('Message received.....', event);
+        }
+        ws.onclose = function(){
+            console.error('Connection closed unexpectedly')
+        }
+        ws.onerror = function(){
+            console.error('WebSocket error occurred')
+        }
     </script>
 </body>
 </html>
