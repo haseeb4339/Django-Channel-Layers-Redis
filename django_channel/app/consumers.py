@@ -1,5 +1,6 @@
 from channels.consumer import SyncConsumer, AsyncConsumer
 from channels.exceptions import StopConsumer
+from asgiref.sync import async_to_sync
 import asyncio
 from time import sleep
 
@@ -8,6 +9,9 @@ class MySyncConsumer(SyncConsumer):
     def websocket_connect(self,event):
         print("connection established....")
         print('channel Layer', self.channel_layer)  #get default channel layer from channel layer
+        print('channel name', self.channel_name) #get channel name from channel
+        #add channel to a group
+        async_to_sync(self.channel_layer.group_add)('Programmers', self.channel_name)
         self.send({
             'type':'websocket.accept'
         })
